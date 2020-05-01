@@ -26,3 +26,15 @@ namespace duomenuapdorojimas
             egpazymys = egzGrade;
         }
      }
+        public double VidurkioSkaiciavimas()
+        {
+            if(pazymys.Count == 0)
+            {
+                return 0;
+            }
+            else
+            {
+            return (double)pazymys.Sum() / (double)pazymys.Count;
+            }
+        }
+
