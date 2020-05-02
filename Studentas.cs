@@ -92,17 +92,13 @@ namespace duomenuapdorojimas
 
         public string[] save(Funkcijos choice)
         {
-            //double p = 0;
-            //var duomenys = new string[] { pav, vard };
             var duomenys = new List<string> { pav, vard };
             if (choice == Funkcijos.Vidurkis)
             {
-                //p = VidurkioSkaiciavimas();
                 duomenys.Add(VidurkioSkaiciavimas().ToString("0.##"));
             }
             else if (choice == Funkcijos.Mediana)
             {
-                //p = MedianosSkaiciavimas();
                 duomenys.Add(MedianosSkaiciavimas().ToString("0.##"));
             }
             else if (choice == Funkcijos.FailoVeiksmai)
