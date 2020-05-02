@@ -15,7 +15,7 @@ namespace duomenuapdorojimas
                     break; 
                 }
                 else{
-                    Studentai.NaujasIrasas();
+                    Studentas.NaujasIrasas();
                 }
             }
         }
