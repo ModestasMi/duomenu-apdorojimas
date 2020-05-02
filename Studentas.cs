@@ -37,4 +37,21 @@ namespace duomenuapdorojimas
             return (double)pazymys.Sum() / (double)pazymys.Count;
             }
         }
-
+      public double MedianosSkaiciavimas()
+        {
+            double[] sk = pazymys.ToArray();
+            Array.Sort(sk);
+            int pazymiusk = sk.Length;
+            if (pazymiusk % 2 == 0)
+            {
+                return (sk[pazymiusk / 2] + sk[pazymiusk / 2 - 1]) / 2;
+            }
+            else if (pazymiusk != 0 && pazymiusk % 2 != 0)
+            {
+                return sk[pazymiusk / 2];
+            }
+            else
+            {
+                return 0;
+            }
+        }
