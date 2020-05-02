@@ -10,6 +10,7 @@ namespace duomenuapdorojimas
         public string pav;
         List<double> pazymys = new List<double>();
         public double egpazymys;
+        public static Random AtsitiktinisSk = new Random();
         
    public Studentas(string vardas, string pavarde)
         {
@@ -63,9 +64,19 @@ namespace duomenuapdorojimas
             pav = duomenys[0];
             vard = duomenys[1];
 
-            for (int i = 2; i < duomenys.Length; i++)
+            if (duomenys[2].EndsWith("k"))
             {
-                pazymys.Add(double.Parse(duomenys[i]));
+                for (int i = 0; i < int.Parse(duomenys[2].Replace("k", "")); i++)
+                {
+                    pazymys.Add(AtsitiktinisSk.Next(1, 10));
+                }
+            }
+            else
+            {
+                for (int i = 2; i < duomenys.Length; i++)
+                {
+                    pazymys.Add(double.Parse(duomenys[i]));
+                }
             }
         }
 
@@ -101,6 +112,7 @@ namespace duomenuapdorojimas
             while (true)
             {
                 Console.WriteLine("Irasykite pavarde, varda ir pazymius, kai baigsite rasyti dar karta spauskite 'enter'");
+                Console.WriteLine("Jei norite generuoti pazymius atsitiktinai, po pavardes ir vardo iveskite norimu generuoti pazymiu skaiciu ir 'k' raide po jo, pvz '5k' ir spauskite 'enter'");
                 irasas = Console.ReadLine();
 
                 if (irasas.Length != 0)
