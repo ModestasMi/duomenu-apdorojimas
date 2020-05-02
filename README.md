@@ -10,4 +10,11 @@ Kaip naudoti:
 
 4. Programa parodo studentų pažymių vidurkius arba medianas, norint toliau naudoti programą vėl spaudžiame 'enter'. Norint išeiti iš programos įvedame žodį 'exit' ir spaudžiame 'enter'.
 
+## Versija 0.2 ##
+Kaip naudoti:
+
+1. Atidarius programą įvesti žodį 'file'.
+2. Įvesti kelią iki studentai.txt failo (turi baigtis \studentai.txt).
+3. Paspaudus 'enter' klavišą, bus parodomas visų studentų įrašytų faile rezultatų vidurkis ir mediana. Studentai surikiuoti pagal pavardę abėcėlės tvarka.
+
 
