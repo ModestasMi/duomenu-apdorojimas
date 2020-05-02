@@ -82,24 +82,32 @@ namespace duomenuapdorojimas
 
         public string[] save(Funkcijos choice)
         {
-            double p = 0;
-            var duomenys = new string[] { pav, vard };
-
+            //double p = 0;
+            //var duomenys = new string[] { pav, vard };
+            var duomenys = new List<string> { pav, vard };
             if (choice == Funkcijos.Vidurkis)
             {
-                p = VidurkioSkaiciavimas();
+                //p = VidurkioSkaiciavimas();
+                duomenys.Add(VidurkioSkaiciavimas().ToString("0.##"));
             }
             else if (choice == Funkcijos.Mediana)
             {
-                p = MedianosSkaiciavimas();
+                //p = MedianosSkaiciavimas();
+                duomenys.Add(MedianosSkaiciavimas().ToString("0.##"));
             }
-            return duomenys.Append(p.ToString("0.##")).ToArray();
+            else if (choice == Funkcijos.FailoVeiksmai)
+            {
+                duomenys.Add(VidurkioSkaiciavimas().ToString("0.##"));
+                duomenys.Add(MedianosSkaiciavimas().ToString("0.##"));
+            }
+            return duomenys.ToArray();
         }
     }
     public enum Funkcijos
     {
         Vidurkis,
-        Mediana
+        Mediana,
+        FailoVeiksmai
     }
 
     public static class StudentuIrasymas
@@ -157,6 +165,11 @@ namespace duomenuapdorojimas
                 }
                 else if (choice == Funkcijos.Mediana)
                 {
+                    studentoduomenys = studentoduomenys.Append("Galutinis (Med.)").ToArray();
+                }
+                else if (choice == Funkcijos.FailoVeiksmai)
+                {
+                    studentoduomenys = studentoduomenys.Append("Galutinis (Vid.)").ToArray();
                     studentoduomenys = studentoduomenys.Append("Galutinis (Med.)").ToArray();
                 }
                 PridetiEilute(studentoduomenys);
