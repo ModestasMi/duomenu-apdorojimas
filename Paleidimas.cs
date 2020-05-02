@@ -20,7 +20,7 @@ namespace duomenuapdorojimas
                 }
                 else if (irasas.Equals("file"))
                 {
-                    break;
+                    Studentas.KelioIvedimas();
                 }
                 else
                 {
