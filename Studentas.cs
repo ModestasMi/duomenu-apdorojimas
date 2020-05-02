@@ -56,3 +56,79 @@ namespace duomenuapdorojimas
                 return 0;
             }
         }
+
+        public Studentas(string args)
+        {
+            var duomenys = args.Split();
+            pav = duomenys[0];
+            vard = duomenys[1];
+
+            for (int i = 2; i < duomenys.Length; i++)
+            {
+                pazymys.Add(double.Parse(duomenys[i]));
+            }
+        }
+
+        public string[] save(Funkcijos choice)
+        {
+            double p = 0;
+            var duomenys = new string[] { pav, vard };
+
+            if (choice == Funkcijos.Vidurkis)
+            {
+                p = VidurkioSkaiciavimas();
+            }
+            else if (choice == Funkcijos.Mediana)
+            {
+                p = MedianosSkaiciavimas();
+            }
+            return duomenys.Append(p.ToString("0.##")).ToArray();
+        }
+    }
+    public enum Funkcijos
+    {
+        Vidurkis,
+        Mediana
+    }
+
+    public static class StudentuIrasymas
+    {
+        public static void NaujasIrasas()
+        {
+            string irasas;
+            var StudentuIrasymas = new List<Studentas>();
+
+            while (true)
+            {
+                Console.WriteLine("Irasykite pavarde, varda ir pazymius, kai baigsite rasyti dar karta spauskite 'enter'");
+                irasas = Console.ReadLine();
+
+                if (irasas.Length != 0)
+                {
+                    var duomenys = irasas.Split();
+                    StudentuIrasymas.Add(new Studentas(irasas));
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.WriteLine("Irasykite '1' Vidurkio skaiciavimui, '2' Medianos skaiciavimui");
+            irasas = Console.ReadLine();
+            if (irasas.Equals("1"))
+            {
+                Funkcijos choice = Funkcijos.Vidurkis;
+            }
+            else if (irasas.Equals("2"))
+            {
+                Funkcijos choice = Funkcijos.Mediana;
+            }
+            else 
+            {
+                Console.WriteLine("Pasirinkta neteisingai, pradekite is naujo");
+            }
+
+
+        }
+        }
