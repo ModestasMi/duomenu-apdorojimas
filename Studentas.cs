@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace duomenuapdorojimas
 {
     
@@ -88,6 +87,7 @@ namespace duomenuapdorojimas
                 }
             }
             
+            
         }
 
         public string[] save(Funkcijos choice)
@@ -106,6 +106,13 @@ namespace duomenuapdorojimas
                 duomenys.Add(VidurkioSkaiciavimas().ToString("0.##"));
                 duomenys.Add(MedianosSkaiciavimas().ToString("0.##"));
             }
+            else if (choice == Funkcijos.IrasytiPazymius)
+            {
+                foreach (var paz in pazymys)
+                {
+                    duomenys.Add(paz.ToString("0.##"));
+                }
+            }
             return duomenys.ToArray();
         }
         public void PridetiEgzamina(double egzaminas)
@@ -123,13 +130,14 @@ namespace duomenuapdorojimas
                 
                 var irasas = Console.ReadLine().Replace("\"", "");
                 var naujasstudentas = new List<Studentas>();
+
             try
             {
                 naujasstudentas = FailoNuskaitymas(irasas);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Klaidos pranešimas {e.Message}");
+                Console.WriteLine($"Klaidos pranešimas: {e.Message}");
             }
             Atvaizdavimas.AtvaizduotiSarasa(naujasstudentas, Funkcijos.FailoVeiksmai);
         }
@@ -161,17 +169,92 @@ namespace duomenuapdorojimas
             return naujasstudentas;
         }
 
-
+        
         public static List<Studentas> OrderStudents(List<Studentas> rikiavimas)
         {
             return rikiavimas.OrderBy(pagalpav => pagalpav.pav).ToList();
         }
+
     }
     public enum Funkcijos
     {
         Vidurkis,
         Mediana,
-        FailoVeiksmai
+        FailoVeiksmai,
+        IrasytiPazymius
     }
-    
+
+
+    class Analize
+    {
+        public static void Analizuoti()
+        {
+
+            var sizes = new List<int>() {1000, 10000, 100000, 1000000, 10000000};
+
+            System.Console.WriteLine(Atvaizdavimas.Formatuoti("Studentu #", "Pridejimas", "Rusiavimas", "Paskirstymas", "Failu generavimas"));
+            System.Console.WriteLine(Atvaizdavimas.Bruksniuoti());
+            foreach (var i in sizes)
+            {
+                var laikomatavimas = MatuotiLaika(i);
+                var timestamp = new List<string>() { $"{i}" };
+
+                timestamp.AddRange(laikomatavimas.Select(laikas => string.Format("{0}:{1:00}.{2}", (int)laikas.TotalMinutes, laikas.Seconds, laikas.Milliseconds)));
+                System.Console.WriteLine(Atvaizdavimas.Formatuoti(timestamp.ToArray()));
+            }
+        }
+
+        public static List<TimeSpan> MatuotiLaika(int ilgis)
+        {
+            var laikotarpas = new System.Diagnostics.Stopwatch();
+            var laikomatavimas = new List<TimeSpan>();
+
+            laikotarpas.Start();
+
+            var Studentas = new List<Studentas>();
+            for (int i = 0; i < ilgis; i++)
+            {
+                Studentas.Add(new Studentas($"Pavarde{i} Vardas{i} 5k"));
+            }
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            StudentuIrasymas.OrderStudents(Studentas);
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            var kietiakas = new List<Studentas>();
+            var vargsiukas = new List<Studentas>();
+
+            for (int i = 0; i < ilgis; i++)
+            {
+                if (Studentas[i].VidurkioSkaiciavimas() >= 5)
+                {
+                    kietiakas.Add(Studentas[i]);
+                    
+                }
+                else
+                {
+                    vargsiukas.Add(Studentas[i]);
+                }
+            }
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            string path = System.IO.Path.GetTempFileName();
+            StudentuIrasymas.StudentuGeneravimas(path, vargsiukas);
+            System.Console.WriteLine(path);
+            System.Console.WriteLine("vargsiuku sarasas");
+
+            path = System.IO.Path.GetTempFileName();
+            StudentuIrasymas.StudentuGeneravimas(path, kietiakas);
+            System.Console.WriteLine(path);
+            System.Console.WriteLine("kietiaku sarasas");
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            return laikomatavimas;
+        }
+
+    }
 }
