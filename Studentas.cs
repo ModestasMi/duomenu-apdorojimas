@@ -144,7 +144,7 @@ namespace duomenuapdorojimas
 
         public static Studentas StudentoNuskaitymas(string irasas)
         {
-            var args = irasas.Split().Where(x => !x.Equals("")).ToArray();
+            var args = irasas.Split().Where(laikas => !laikas.Equals("")).ToArray();
             var studentas = new Studentas(args[0], args[1]);
             int i = 2;
             while(i < args.Length - 1)
@@ -170,7 +170,7 @@ namespace duomenuapdorojimas
         }
 
         
-        public static List<Studentas> OrderStudents(List<Studentas> rikiavimas)
+        public static IEnumerable<Studentas> OrderStudents(IEnumerable<Studentas> rikiavimas)
         {
             return rikiavimas.OrderBy(pagalpav => pagalpav.pav).ToList();
         }
@@ -219,7 +219,7 @@ namespace duomenuapdorojimas
 
             laikomatavimas.Add(laikotarpas.Elapsed);
 
-            StudentuIrasymas.OrderStudents(Studentas);
+            StudentuIrasymas.OrderStudents(Studentas).ToList();
 
             laikomatavimas.Add(laikotarpas.Elapsed);
 
@@ -254,7 +254,163 @@ namespace duomenuapdorojimas
             laikomatavimas.Add(laikotarpas.Elapsed);
 
             return laikomatavimas;
+
         }
 
+            public static void Testavimas(int size)
+            {
+
+                System.Console.WriteLine($"Student list size: {size}");
+                System.Console.WriteLine(Atvaizdavimas.Formatuoti("Konteineris", "Pridejimas", "Paskirstymas", "Rusiavimas", "Irasymas"));
+                System.Console.WriteLine(Atvaizdavimas.Bruksniuoti());
+
+                System.Console.WriteLine(Atvaizdavimas.Formatuoti(FormatTimeSpans(ListGreitis(size)).Prepend("List").ToArray()));
+                System.Console.WriteLine(Atvaizdavimas.Formatuoti(FormatTimeSpans(LinkedListGreitis(size)).Prepend("LinkedList").ToArray()));
+                System.Console.WriteLine(Atvaizdavimas.Formatuoti(FormatTimeSpans(QueueGreitis(size)).Prepend("Queue").ToArray()));
+            }
+
+            public static string[] FormatTimeSpans(List<TimeSpan> laikomatavimas)
+            {
+                return laikomatavimas.Select(laikas => string.Format("{0}:{1:00}.{2}", (int)laikas.TotalMinutes, laikas.Seconds, laikas.Milliseconds)).ToArray();
+            }
+
+            public static List<TimeSpan> ListGreitis(int size)
+            {
+                var laikomatavimas = new List<TimeSpan>();
+                var laikotarpas = new System.Diagnostics.Stopwatch();
+                laikotarpas.Start();
+
+                var tipas = new List<Studentas>();
+                for (int i = 0; i < size; i++)
+                {
+                    tipas.Add(new Studentas($"Pavarde{i} Vardas{i} 5k"));
+                }
+
+                laikomatavimas.Add(laikotarpas.Elapsed);
+                var kietiakas = new List<Studentas>();
+                var vargsiukas = new List<Studentas>();
+
+                for (int i = 0; i < size; i++)
+                {
+                    if (tipas[i].VidurkioSkaiciavimas() >= 5)
+                    {
+                           kietiakas.Add(tipas[i]);
+                    }
+                    else
+                    {
+                           vargsiukas.Add(tipas[i]);
+                    }
+                }
+
+                laikomatavimas.Add(laikotarpas.Elapsed);
+                kietiakas = new List<Studentas>(StudentuIrasymas.OrderStudents(kietiakas));
+                vargsiukas = new List<Studentas>(StudentuIrasymas.OrderStudents(vargsiukas));
+
+                laikomatavimas.Add(laikotarpas.Elapsed);
+
+                string path = System.IO.Path.GetTempFileName();
+                StudentuIrasymas.StudentuGeneravimas(path, tipas);
+
+                laikomatavimas.Add(laikotarpas.Elapsed);
+
+                return laikomatavimas;
+            }
+
+        public static List<TimeSpan> LinkedListGreitis(int size)
+        {
+            var laikomatavimas = new List<TimeSpan>();
+            var laikotarpas = new System.Diagnostics.Stopwatch();
+            laikotarpas.Start();
+
+            var tipas = new LinkedList<Studentas>();
+            for (int i = 0; i < size; i++)
+            {
+                tipas.AddFirst(new Studentas($"Pavarde{i} Vardas{i} 5k"));
+            }
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            laikotarpas.Restart();
+
+            var kietiakas = new LinkedList<Studentas>();
+            var vargsiukas = new LinkedList<Studentas>();
+
+            for (int i = 0; i < size; i++)
+            {
+                var element = tipas.First();
+                if (element.VidurkioSkaiciavimas() >= 5)
+                {
+                    kietiakas.AddFirst(element);
+
+                }
+                else
+                {
+                    vargsiukas.AddFirst(element);
+                }
+                tipas.RemoveFirst();
+            }
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            laikotarpas.Restart();
+            kietiakas = new LinkedList<Studentas>(StudentuIrasymas.OrderStudents(kietiakas));
+            vargsiukas = new LinkedList<Studentas>(StudentuIrasymas.OrderStudents(vargsiukas));
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+            laikotarpas.Restart();
+
+            string path = System.IO.Path.GetTempFileName();
+            StudentuIrasymas.StudentuGeneravimas2(path, tipas);
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            return laikomatavimas;
+        }
+
+        public static List<TimeSpan> QueueGreitis(int size)
+            {
+                var laikomatavimas = new List<TimeSpan>();
+                var laikotarpas = new System.Diagnostics.Stopwatch();
+                laikotarpas.Start();
+
+            var tipas = new Queue<Studentas>();
+            for (int i = 0; i < size; i++)
+            {
+                tipas.Enqueue(new Studentas($"Pavarde{i} Vardas{i} 5k"));
+            }
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            var kietiakas = new Queue<Studentas>();
+            var vargsiukas = new Queue<Studentas>();
+
+            for (int i = 0; i < size; i++)
+            {
+                if (tipas.ElementAt(i).VidurkioSkaiciavimas() >= 5)
+                {
+                    kietiakas.Enqueue(tipas.ElementAt(i));
+                }
+                else
+                {
+                    vargsiukas.Enqueue(tipas.ElementAt(i));
+                }
+            }
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            kietiakas = new Queue<Studentas>(StudentuIrasymas.OrderStudents(kietiakas));
+            vargsiukas = new Queue<Studentas>(StudentuIrasymas.OrderStudents(vargsiukas));
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            string path = System.IO.Path.GetTempFileName();
+            StudentuIrasymas.StudentuGeneravimas3(path, tipas);
+
+            laikomatavimas.Add(laikotarpas.Elapsed);
+
+            return laikomatavimas;
+            }
+        }
+
+
     }
-}
