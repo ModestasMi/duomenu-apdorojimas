@@ -240,8 +240,14 @@ namespace duomenuapdorojimas
                     studentoduomenys = studentoduomenys.Append("Galutinis (Vid.)").ToArray();
                     studentoduomenys = studentoduomenys.Append("Galutinis (Med.)").ToArray();
                 }
-
+                try
+                {
                 StudentuIrasymas = Studentas.OrderStudents(StudentuIrasymas);
+                }
+                catch (Exception ex)
+                {
+                Console.WriteLine($"Klaidos pranešimas: {ex.Message}");
+                }
 
                 PridetiEilute(studentoduomenys);
                 Console.WriteLine(Bruksniuoti());
