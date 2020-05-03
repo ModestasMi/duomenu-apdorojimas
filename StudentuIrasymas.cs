@@ -46,11 +46,43 @@ public static class StudentuIrasymas
 
 
     }
-    public static List<Studentas> OrderStudents(List<Studentas> rikiavimas)
+    public static IEnumerable<Studentas> OrderStudents(IEnumerable<Studentas> rikiavimas)
     {
         return rikiavimas.OrderBy(pagalpav => pagalpav.pav).ToList();
     }
     public static void StudentuGeneravimas(string path, List<Studentas> studentlist)
+    {
+        System.IO.StreamWriter pildomassarasas;
+        pildomassarasas = new System.IO.StreamWriter(path);
+
+
+        pildomassarasas.WriteLine(Atvaizdavimas.Formatuoti("Pavarde", "Vardas", "ND1", "ND2", "ND3", "ND4", "ND5"));
+
+        foreach (var studentas in studentlist)
+        {
+            pildomassarasas.WriteLine(Atvaizdavimas.Formatuoti(studentas.save(Funkcijos.IrasytiPazymius)));
+        }
+
+        pildomassarasas.Close();
+    }
+
+    public static void StudentuGeneravimas2(string path, LinkedList<Studentas> studentlist)
+    {
+        System.IO.StreamWriter pildomassarasas;
+        pildomassarasas = new System.IO.StreamWriter(path);
+
+
+        pildomassarasas.WriteLine(Atvaizdavimas.Formatuoti("Pavarde", "Vardas", "ND1", "ND2", "ND3", "ND4", "ND5"));
+
+        foreach (var studentas in studentlist)
+        {
+            pildomassarasas.WriteLine(Atvaizdavimas.Formatuoti(studentas.save(Funkcijos.IrasytiPazymius)));
+        }
+
+        pildomassarasas.Close();
+    }
+
+    public static void StudentuGeneravimas3(string path, Queue<Studentas> studentlist)
     {
         System.IO.StreamWriter pildomassarasas;
         pildomassarasas = new System.IO.StreamWriter(path);
