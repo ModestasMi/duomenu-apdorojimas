@@ -123,15 +123,14 @@ namespace duomenuapdorojimas
                 
                 var irasas = Console.ReadLine().Replace("\"", "");
                 var naujasstudentas = new List<Studentas>();
-            if (System.IO.File.Exists(irasas))
-                {
-                    naujasstudentas = FailoNuskaitymas(irasas);
-                }
-                else
-                {
-                    Console.WriteLine("Kelias ivestas neteisingai, pradekite is naujo");
-                }
-
+            try
+            {
+                naujasstudentas = FailoNuskaitymas(irasas);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Klaidos pranešimas {e.Message}");
+            }
             Atvaizdavimas.AtvaizduotiSarasa(naujasstudentas, Funkcijos.FailoVeiksmai);
         }
 
