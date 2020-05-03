@@ -10,7 +10,8 @@ namespace duomenuapdorojimas
             {
                 Console.WriteLine("Spauskite 'enter' noredami irasyti studenta");
                 Console.WriteLine("Iveskite 'file' norint nuskaityti duomenis is failo");
-                Console.WriteLine("Iveskite 'gen' norint sugeneruoti sarasus");
+                Console.WriteLine("Iveskite 'gen' norint sugeneruoti List tipo sarasus");
+                Console.WriteLine("Iveskite 'test' norint palyginti List, LinkedList ir Queue duomenų tipo greičius");
                 Console.WriteLine("Iveskite 'exit' norint baigti programa");
 
                 var irasas = Console.ReadLine();
@@ -25,6 +26,10 @@ namespace duomenuapdorojimas
                 else if (irasas.Equals("gen"))
                 {
                     Analize.Analizuoti();
+                }
+                else if (irasas.Equals("test"))
+                {
+                    Analize.Testavimas(100000);
                 }
                 else
                 {
