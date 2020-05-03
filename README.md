@@ -43,7 +43,11 @@ Tuo pat metu yra atliekama ir programos greičio analizė, rezultatai gauti atli
  Čia:
  
  Studentu # - Kiek studentų buvo sugeneruota.
+ 
  Pridejimas - Kiek laiko min/sek/milisek užtruko pridėti studentus programos viduje.
+ 
  Rusiavimas - Kiek laiko min/sek/milisek užtruko pridėti studentus ir juos surūšiuoti.
+ 
  Paskirstymas - Kiek laiko min/sek/milisek užtruko pridėti,surūšiuoti ir paskirstyti studentus į dvi grupes pagal pažymius.
+ 
  Failu generavimas - Kiek laiko min/sek/milisek užtruko pridėti,surūšiuoti, paskirstyti studentus į dvi grupes pagal pažymius ir generuoti failą.
