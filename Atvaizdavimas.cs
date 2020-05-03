@@ -5,6 +5,8 @@ using System.Linq;
 
 public class Atvaizdavimas
 {
+    public static int tableWidth = 80;
+
     public static void AtvaizduotiSarasa(List<Studentas> StudentuIrasymas, Funkcijos choice)
     {
 
@@ -24,14 +26,6 @@ public class Atvaizdavimas
             studentoduomenys = studentoduomenys.Append("Galutinis (Med.)").ToArray();
         }
 
-        try
-        {
-            StudentuIrasymas = Studentas.OrderStudents(StudentuIrasymas);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Klaidos pranešimas: {ex.Message}");
-        }
 
 
         PridetiEilute(studentoduomenys);

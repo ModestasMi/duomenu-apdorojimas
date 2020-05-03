@@ -1,5 +1,4 @@
-using System;
-
+﻿using System;
 
 namespace duomenuapdorojimas
 {
@@ -25,7 +24,7 @@ namespace duomenuapdorojimas
                 }
                 else if (irasas.Equals("gen"))
                 {
-                    break;
+                    Analize.Analizuoti();
                 }
                 else
                 {
@@ -33,5 +32,6 @@ namespace duomenuapdorojimas
                 }
             }
         }
+
     }
 }
