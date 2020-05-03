@@ -17,4 +17,6 @@ Kaip naudoti:
 2. Įvesti kelią iki studentai.txt failo (turi baigtis \studentai.txt).
 3. Paspaudus 'enter' klavišą, bus parodomas visų studentų įrašytų faile rezultatų vidurkis ir mediana. Studentai surikiuoti pagal pavardę abėcėlės tvarka.
 
+## Versija 0.3 ##
+Atliktas kodo išskaidymas į atskirus .cs failus ir pora kartų panaudotas išimčių valdymas.
 
