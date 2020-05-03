@@ -51,3 +51,17 @@ Tuo pat metu yra atliekama ir programos greičio analizė, rezultatai gauti atli
  Paskirstymas - Kiek laiko min/sek/milisek užtruko pridėti,surūšiuoti ir paskirstyti studentus į dvi grupes pagal pažymius.
  
  Failu generavimas - Kiek laiko min/sek/milisek užtruko pridėti,surūšiuoti, paskirstyti studentus į dvi grupes pagal pažymius ir generuoti failą.
+ 
+ ## Versija 0.5 ##
+Kaip naudoti:
+
+1. Atidarius programą įvesti žodį 'test'.
+2. Programa pradės List, LinkedList ir Queue konteinerių greičio testavimą, pavyzdys buvo atliktas su 100000 eilučių.
+
+ Konteineris     |    Pridejimas     |    Paskirstymas    |    Rusiavimas    |    Irasymas
+|-|-|-|-|-|
+ List            |    0:00.244       |    0:00.256        |    0:00.589      |    0:00.951
+|-|-|-|-|-|
+ LinkedList      |    0:00.229       |    0:00.74         |    0:00.329      |    0:00.2
+|-|-|-|-|-|
+ Queue           |    0:00.245       |    1:19.940        |    1:20.249      |    1:20.568
